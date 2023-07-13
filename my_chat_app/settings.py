@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from django.core.management.commands.runserver import Command as runserver
+runserver.default_port = "3000"
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-^#13+^7ok0m!dkz1tq_o-01r=^appinlwjm1&__6kyr#qb6jut
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.0.2.2','127.0.0.1']
+ALLOWED_HOSTS = ['10.0.2.2','127.0.0.1','localhost']
 
 
 # Application definition
@@ -52,7 +54,14 @@ INSTALLED_APPS = [
 
 
 SITE_ID = 1
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,6 +92,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'my_chat_app.wsgi.application'
+# ASGI_APPLICATION = 'my_chat_app.asgi.application'
 
 
 # Database
